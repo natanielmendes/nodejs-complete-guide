@@ -24,18 +24,17 @@ module.exports = class Product {
         });
     }
 
-    static fetchAll() {
+    static fetchAll(cb) {
         const p = path.join(
             path.dirname(process.mainModule.filename),
             'data',
             'products.json'
         );
-        return fs.readFile(p, (err, fileContent) => {
+        fs.readFile(p, (err, fileContent) => {
             if (err) {
-                return [];
+                cb([]);
             }
-            console.log(JSON.parse(fileContent))
-            return JSON.parse(fileContent);
+            cb(JSON.parse(fileContent));
         });
     }
 }
